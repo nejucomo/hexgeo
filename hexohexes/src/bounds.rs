@@ -1,3 +1,5 @@
+use crate::Axials;
+
 /// Precomputed coordinate bounds for quick conversion between axial coords and usize storage indices
 ///
 /// # Performance Tradeoffs
@@ -59,27 +61,45 @@ impl CoordBounds {
     }
 
     #[inline]
-    pub fn contains(&self, q: isize, r: isize) -> bool {
+    pub fn contains(&self, axials: Axials) -> bool {
+        let Axials { q, r } = axials;
         let rad = self.irad();
         let s = -q - r;
         q.abs() <= rad && r.abs() <= rad && s.abs() <= rad
     }
 
-    #[inline]
-    pub fn axial_to_index(&self, q: isize, r: isize) -> Option<usize> {
-        if !self.contains(q, r) {
-            return None;
-        }
-        let row = self.row_of_r(r);
-        Some(self.row_starts[row] + (q - q_min(self.irad(), r)) as usize)
+    pub fn iter(&self) -> impl Iterator<Item = Axials> + '_ {
+        (0..self.count()).map(|ix| self.index_to_axial(ix).unwrap())
     }
 
     #[inline]
-    pub fn index_to_axial(&self, index: usize) -> Option<(isize, isize)> {
+    pub(crate) fn axial_to_index(&self, axials: Axials) -> Option<usize> {
+        if self.contains(axials) {
+            let Axials { q, r } = axials;
+            let row = self.row_of_r(r);
+            Some(self.row_starts[row] + (q - q_min(self.irad(), r)) as usize)
+        } else {
+            None
+        }
+    }
+
+    #[inline]
+    pub(crate) fn require_axial_to_index<T>(&self, axials: Axials) -> usize {
+        if let Some(ix) = self.axial_to_index(axials) {
+            ix
+        } else {
+            let tn = std::any::type_name::<T>();
+            let r = self.radius();
+            panic!("indexing {tn}, radius {r} with out-of-bounds {axials:?}");
+        }
+    }
+
+    #[inline]
+    pub(crate) fn index_to_axial(&self, index: usize) -> Option<Axials> {
         let &row = self.index_rows.get(index)?;
         let r = self.r_of_row(row);
         let q = q_min(self.irad(), r) + (index - self.row_starts[row]) as isize;
-        Some((q, r))
+        Some(Axials::new(q, r))
     }
 
     fn row_of_r(&self, r: isize) -> usize {
