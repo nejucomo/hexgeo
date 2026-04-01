@@ -1,4 +1,7 @@
-use eframe::egui::{CentralPanel, Context, Response, Ui, ViewportBuilder, Widget};
+use eframe::egui::{
+    CentralPanel, Context, MenuBar, Response, TopBottomPanel, Ui, ViewportBuilder, ViewportCommand,
+    Widget,
+};
 use eframe::{Frame, NativeOptions, run_native};
 use hexohexes::Board;
 use hexohexes_egui::BoardFrame;
@@ -25,6 +28,15 @@ struct App {
 
 impl eframe::App for App {
     fn update(&mut self, ctx: &Context, _frame: &mut Frame) {
+        TopBottomPanel::top("my_panel").show(ctx, |ui| {
+            MenuBar::new().ui(ui, |ui| {
+                ui.menu_button("File", |ui| {
+                    if ui.button("Quit").clicked() {
+                        ui.ctx().send_viewport_cmd(ViewportCommand::Close);
+                    }
+                });
+            });
+        });
         CentralPanel::default().show(ctx, |ui| ui.add(self));
     }
 }

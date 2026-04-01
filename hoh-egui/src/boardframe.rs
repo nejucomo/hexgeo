@@ -1,4 +1,4 @@
-use egui::{Color32, Frame, InnerResponse, Response, Stroke, Style, Ui, Widget};
+use egui::{Color32, Frame, InnerResponse, Response, Sense, Stroke, Style, Ui, Widget};
 use hexohexes::Board;
 
 use crate::ext::AxialBoundsExt as _;
@@ -10,7 +10,7 @@ pub struct BoardFrame<'a, T> {
     hexor: HexOrientation,
 }
 
-pub type BoardResponse = ();
+pub type BoardResponse = Response;
 
 impl<'a, T> BoardFrame<'a, T> {
     pub fn new(board: &'a Board<T>) -> Self {
@@ -30,6 +30,8 @@ impl<'a, T> BoardFrame<'a, T> {
     }
 
     fn show_inner(self, ui: &mut Ui) -> BoardResponse {
+        let resp = ui.allocate_rect(ui.max_rect(), Sense::hover());
+
         let projector = Projector::new(self.board.bounding_rect(self.hexor), ui.max_rect());
         let painter = ui.painter();
 
@@ -43,6 +45,8 @@ impl<'a, T> BoardFrame<'a, T> {
                 },
             );
         }
+
+        resp
     }
 }
 
