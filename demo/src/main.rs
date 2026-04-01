@@ -9,9 +9,11 @@ use hexohexes_egui::{BoardWidget, HexOrientation};
 mod select_menu;
 
 fn main() -> eframe::Result<()> {
+    let radius = 3;
     let app = App {
-        board: Board::new_defaults(3),
+        board: Board::new_defaults(radius),
         hexor: HexOrientation::default(),
+        radius,
     };
 
     run_native(
@@ -28,10 +30,16 @@ fn main() -> eframe::Result<()> {
 struct App {
     board: Board<()>,
     hexor: HexOrientation,
+    radius: usize,
 }
 
 impl eframe::App for App {
     fn update(&mut self, ctx: &Context, _frame: &mut Frame) {
+        if self.radius != self.board.radius() {
+            // The user changed the radius, reset the board:
+            self.board = Board::new_defaults(self.radius);
+        }
+
         TopBottomPanel::top("my_panel").show(ctx, |ui| {
             MenuBar::new().ui(ui, |ui| {
                 ui.menu_button("File", |ui| {
@@ -45,6 +53,8 @@ impl eframe::App for App {
 
                     [FlatTop, PointyTop]
                 });
+
+                select_menu::add(ui, "radius", &mut self.radius, 0..=7);
             });
         });
         CentralPanel::default().show(ctx, |ui| ui.add(self));
