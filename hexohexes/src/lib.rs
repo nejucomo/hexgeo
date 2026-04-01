@@ -5,6 +5,7 @@ mod axials;
 mod board;
 mod bounds;
 
+pub mod geom;
 pub use self::axials::Axials;
 pub use self::board::Board;
 pub use self::bounds::AxialBounds;
