@@ -1,5 +1,4 @@
-use eframe::egui::layers::ShapeIdx;
-use eframe::egui::{Color32, Painter, Pos2};
+use eframe::egui::Pos2;
 use extension_traits::extension;
 use hexohexes::Axials;
 
@@ -13,9 +12,5 @@ impl Axials {
             3f32.sqrt().mul_add(qf, 3f32.sqrt() / 2.0 * rf),
             3.0 / 2.0 * rf,
         )
-    }
-
-    fn paint_center(self, painter: &Painter) -> ShapeIdx {
-        painter.circle_filled(self.center_pos(), 0.2, Color32::WHITE)
     }
 }

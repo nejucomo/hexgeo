@@ -5,7 +5,7 @@ use eframe::{Frame, NativeOptions, run_native};
 use crate::gameboard::GameBoard;
 use crate::widgets::BoardWidget;
 
-const HEX_RADIUS: usize = 4;
+const HEX_RADIUS: usize = 3;
 
 #[derive(new)]
 pub(crate) struct App {
@@ -32,7 +32,10 @@ impl App {
         let viewbound = (1 + HEX_RADIUS) as f32;
         Self::new(
             GameBoard::new_defaults(HEX_RADIUS),
-            Rect::from_x_y_ranges(-viewbound..=viewbound, -viewbound..=viewbound),
+            dbg!(Rect::from_x_y_ranges(
+                -viewbound..=viewbound,
+                -viewbound..=viewbound
+            )),
         )
     }
 }
