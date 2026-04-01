@@ -6,6 +6,8 @@ use eframe::{Frame, NativeOptions, run_native};
 use hexohexes::Board;
 use hexohexes_egui::{BoardWidget, HexOrientation};
 
+mod select_menu;
+
 fn main() -> eframe::Result<()> {
     let app = App {
         board: Board::new_defaults(3),
@@ -37,15 +39,11 @@ impl eframe::App for App {
                         ui.ctx().send_viewport_cmd(ViewportCommand::Close);
                     }
                 });
-                ui.menu_button("Orientation", |ui| {
+
+                select_menu::add_with_type_name(ui, &mut self.hexor, {
                     use HexOrientation::*;
 
-                    let r1 = ui.selectable_value(&mut self.hexor, FlatTop, "Flat Top");
-                    let r2 = ui.selectable_value(&mut self.hexor, PointyTop, "Pointy Top");
-
-                    if r1.clicked() || r2.clicked() {
-                        ui.close();
-                    }
+                    [FlatTop, PointyTop]
                 });
             });
         });
