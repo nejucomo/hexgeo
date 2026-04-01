@@ -68,7 +68,7 @@ impl CoordBounds {
         q.abs() <= rad && r.abs() <= rad && s.abs() <= rad
     }
 
-    pub fn iter(&self) -> impl Iterator<Item = Axials> + '_ {
+    pub fn iter_axials(&self) -> impl Iterator<Item = Axials> + '_ {
         (0..self.count()).map(|ix| self.index_to_axial(ix).unwrap())
     }
 

@@ -1,9 +1,17 @@
 use derive_new::new;
-use eframe::egui::{CentralPanel, Context, Response, Ui, ViewportBuilder, Widget};
+use eframe::egui::{CentralPanel, Context, Rect, Response, Ui, ViewportBuilder, Widget};
 use eframe::{Frame, NativeOptions, run_native};
 
+use crate::gameboard::GameBoard;
+use crate::widgets::BoardWidget;
+
+const HEX_RADIUS: usize = 4;
+
 #[derive(new)]
-pub(crate) struct App {}
+pub(crate) struct App {
+    board: GameBoard,
+    boardview: Rect,
+}
 
 impl App {
     pub(crate) fn run() -> eframe::Result<()> {
@@ -20,7 +28,12 @@ impl App {
 
     fn init(cc: &eframe::CreationContext<'_>) -> Self {
         log::trace!("{:#?}", cc.egui_ctx.style());
-        Self::new()
+
+        let viewbound = (1 + HEX_RADIUS) as f32;
+        Self::new(
+            GameBoard::new_defaults(HEX_RADIUS),
+            Rect::from_x_y_ranges(-viewbound..=viewbound, -viewbound..=viewbound),
+        )
     }
 }
 
@@ -32,6 +45,6 @@ impl eframe::App for App {
 
 impl Widget for &mut App {
     fn ui(self, ui: &mut Ui) -> Response {
-        ui.label("hi")
+        ui.add(BoardWidget::new(&self.board, &mut self.boardview))
     }
 }

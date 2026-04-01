@@ -6,6 +6,7 @@ resolver = "3"
 edition = "2024"
 
 [workspace.dependencies]
+hexohexes = { path = "./hexohexes" }
 modmad-hex-widget = { path = "./hex-widget" }
 
 clap = { version = "4.5.54", features = ["derive"] }

@@ -9,6 +9,22 @@ pub struct Board<T> {
 }
 
 impl<T> Board<T> {
+    pub fn new_defaults(radius: usize) -> Self
+    where
+        T: Default,
+    {
+        let bounds = CoordBounds::new(radius);
+
+        let mut data = Vec::with_capacity(bounds.count());
+        data.resize_with(bounds.count(), T::default);
+
+        Board { bounds, data }
+    }
+
+    pub fn bounds(&self) -> &CoordBounds {
+        &self.bounds
+    }
+
     pub fn get(&self, ax: Axials) -> Option<&T> {
         self.bounds.axial_to_index(ax).map(|ix| &self.data[ix])
     }
