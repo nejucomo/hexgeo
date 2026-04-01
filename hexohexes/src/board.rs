@@ -1,10 +1,10 @@
 use std::ops::{Deref, Index, IndexMut};
 
-use crate::{Axials, CoordBounds};
+use crate::{AxialBounds, Axials};
 
 #[derive(Clone, Debug)]
 pub struct Board<T> {
-    bounds: CoordBounds,
+    bounds: AxialBounds,
     data: Vec<T>,
 }
 
@@ -13,7 +13,7 @@ impl<T> Board<T> {
     where
         T: Default,
     {
-        let bounds = CoordBounds::new(radius);
+        let bounds = AxialBounds::new(radius);
 
         let mut data = Vec::with_capacity(bounds.count());
         data.resize_with(bounds.count(), T::default);
@@ -21,7 +21,7 @@ impl<T> Board<T> {
         Board { bounds, data }
     }
 
-    pub fn bounds(&self) -> &CoordBounds {
+    pub fn bounds(&self) -> &AxialBounds {
         &self.bounds
     }
 
@@ -35,7 +35,7 @@ impl<T> Board<T> {
 }
 
 impl<T> Deref for Board<T> {
-    type Target = CoordBounds;
+    type Target = AxialBounds;
 
     fn deref(&self) -> &Self::Target {
         &self.bounds

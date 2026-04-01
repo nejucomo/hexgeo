@@ -6,7 +6,7 @@ use crate::Axials;
 ///
 /// This design is optimized for a relatively small radius and stores `O(radius^2)` [usize]s to reduce conversion cost. Note/TODO: there has been no profiling of this pre-computation approach versus a purely arithmetic conversion implementation for varying radii.
 #[derive(Debug, Clone)]
-pub struct CoordBounds {
+pub struct AxialBounds {
     radius: usize,
 
     // row for each r in -R..=R
@@ -16,7 +16,7 @@ pub struct CoordBounds {
     index_rows: Vec<usize>,
 }
 
-impl CoordBounds {
+impl AxialBounds {
     pub fn new(radius: usize) -> Self {
         let radius_i = radius as isize;
         let rows = 2 * radius + 1;

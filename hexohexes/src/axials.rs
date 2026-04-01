@@ -6,3 +6,7 @@ pub struct Axials {
     pub q: isize,
     pub r: isize,
 }
+
+impl Axials {
+    pub const CENTER: Axials = Axials { q: 0, r: 0 };
+}

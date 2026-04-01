@@ -6,3 +6,7 @@ edition.workspace = true
 [dependencies]
 derive-new.workspace = true
 derive_more = { workspace = true, features = ["from", "into"] }
+
+[lib]
+test = false
+doctest = false

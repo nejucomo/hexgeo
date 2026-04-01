@@ -1,9 +1,0 @@
-[package]
-name = "modmad-hex-widget"
-version = "0.1.0"
-edition.workspace = true
-
-[dependencies]
-derive-new.workspace = true
-egui.workspace = true
-hexing.workspace = true

@@ -1633,21 +1633,20 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "dfa686283ad6dd069f105e5ab091b04c62850d3e4cf5d67debad1933f55023df"
 
 [[package]]
-name = "hexing"
-version = "0.3.3"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "ecf25984f16f9f57f2997cbbf71f1114dae167aa3492f8c0600d38493cf41104"
-dependencies = [
- "paste",
- "priority-queue",
-]
-
-[[package]]
 name = "hexohexes"
 version = "0.1.0"
 dependencies = [
  "derive-new",
  "derive_more",
+]
+
+[[package]]
+name = "hexohexes-egui"
+version = "0.1.0"
+dependencies = [
+ "egui",
+ "extension-traits",
+ "hexohexes",
 ]
 
 [[package]]
@@ -2086,20 +2085,10 @@ dependencies = [
  "derive-new",
  "eframe",
  "env_logger",
- "extension-traits",
- "hexing",
  "hexohexes",
+ "hexohexes-egui",
  "log",
  "logging-options",
-]
-
-[[package]]
-name = "modmad-hex-widget"
-version = "0.1.0"
-dependencies = [
- "derive-new",
- "egui",
- "hexing",
 ]
 
 [[package]]
@@ -2706,17 +2695,6 @@ checksum = "479ca8adacdd7ce8f1fb39ce9ecccbfe93a3f1344b3d0d97f20bc0196208f62b"
 dependencies = [
  "proc-macro2",
  "syn",
-]
-
-[[package]]
-name = "priority-queue"
-version = "2.7.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "93980406f12d9f8140ed5abe7155acb10bb1e69ea55c88960b9c2f117445ef96"
-dependencies = [
- "equivalent",
- "indexmap",
- "serde",
 ]
 
 [[package]]

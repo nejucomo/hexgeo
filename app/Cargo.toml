@@ -7,10 +7,13 @@ edition.workspace = true
 clap.workspace = true
 color-eyre.workspace = true
 derive-new.workspace = true
-extension-traits.workspace = true
 eframe.workspace = true
 env_logger.workspace = true
-hexing.workspace = true
 hexohexes.workspace = true
+hexohexes-egui.workspace = true
 log.workspace = true
 logging-options.workspace = true
+
+[lib]
+test = false
+doctest = false
