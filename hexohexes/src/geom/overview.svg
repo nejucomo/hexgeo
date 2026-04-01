@@ -7,7 +7,7 @@
     .axis {
       stroke: currentColor;
       stroke-width: 0.0125;
-      marker-end="url(#arrow)"
+      marker-end: url(#arrow);
     }
     .gridLine {
       stroke: currentColor;
@@ -65,12 +65,24 @@
       <circle class="circle" cx="0" cy="0" r="1"/>
     </g>
     <g id="axis-labels" class="small" >
-      <text class="label" x="155" y="6">x</text>
-      <text class="label" x="-6" y="168">y</text>
-      <text x="-172" y="-12">(-1, 0)</text>
-      <text x="128" y="-12">(1, 0)</text>
-      <text x="6" y="-130">(0, -1)</text>
-      <text x="6" y="142">(0, 1)</text>
+      <text class="label" x="155" y="6">
+        x
+      </text>
+      <text class="label" x="-6" y="168">
+        y
+      </text>
+      <text x="-172" y="-16">
+        (-1, 0)
+      </text>
+      <text x="128" y="-16">
+        (1, 0)
+      </text>
+      <text x="10" y="-130">
+        (0, -1)
+      </text>
+      <text x="10" y="142">
+        (0, 1)
+      </text>
     </g>
   </defs>
   <g id="PointyTop" transform="translate(225 210)">
