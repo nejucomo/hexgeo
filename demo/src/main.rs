@@ -1,3 +1,5 @@
+mod ext;
+
 use eframe::egui::{
     CentralPanel, Context, MenuBar, Response, TopBottomPanel, Ui, ViewportBuilder, ViewportCommand,
     Widget,
@@ -7,7 +9,7 @@ use hexgeo::geom::DHO;
 use hexgeo::radial::RadialIndexMap;
 use hexgeo_egui::Wireframe;
 
-mod select_menu;
+use crate::ext::UiExt as _;
 
 fn main() -> eframe::Result<()> {
     run_native(
@@ -53,14 +55,8 @@ impl eframe::App for App {
                     }
                 });
 
-                select_menu::add(
-                    ui,
-                    "Orientation",
-                    &mut self.dho,
-                    [DHO::FlatTop, DHO::PointyTop],
-                );
-
-                select_menu::add(ui, "Radius", &mut self.radius, 0..=7);
+                ui.menu_choice("Orientation", &mut self.dho, [DHO::FlatTop, DHO::PointyTop]);
+                ui.menu_choice("Radius", &mut self.radius, 0..=7);
             });
         });
         CentralPanel::default().show(ctx, |ui| ui.add(self));

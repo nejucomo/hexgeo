@@ -1461,6 +1461,7 @@ name = "hexgeo-egui-demo"
 version = "0.1.0"
 dependencies = [
  "eframe",
+ "extension-traits",
  "hexgeo",
  "hexgeo-egui",
 ]
