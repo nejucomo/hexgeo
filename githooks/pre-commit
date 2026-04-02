@@ -1,0 +1,51 @@
+#!/bin/bash
+set -efuo pipefail
+
+function main
+{
+  [ -n "${IN_NIX_SHELL:-}" ] || fail 'must be in `nix develop` shell'
+  unstaged_is_dirty && fail 'refusing to proceed with unstaged changes'
+
+  v cargo check "$@"
+  v git add Cargo.lock
+
+  # Do this prior to auto-fmt-tomls to roll in both changes:
+  v cargo shear --frozen
+  auto-fmt-tomls
+
+  gauntlet
+}
+
+function fail
+{
+  echo "$*"
+  exit 1
+}
+
+function unstaged_is_dirty
+{
+  git status --porcelain | rg '^.[^ ]'
+}
+
+function auto-fmt-tomls
+{
+  v taplo format
+  git diff
+  v git add $(fd -g '*.toml')
+}
+
+function gauntlet
+{
+  v cargo build "$@"
+  v cargo doc "$@"
+  v cargo clippy "$@"
+  v cargo test "$@"
+}
+
+function v
+{
+  echo "=== $*"
+  eval "$@"
+}
+
+main "$@"
