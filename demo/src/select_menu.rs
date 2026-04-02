@@ -15,16 +15,3 @@ where
         }
     });
 }
-
-pub fn add_with_type_name<T, I>(ui: &mut Ui, state: &mut T, options: I)
-where
-    T: std::fmt::Debug + PartialEq,
-    I: IntoIterator<Item = T>,
-{
-    add(
-        ui,
-        std::any::type_name::<T>().rsplit_once("::").unwrap().1,
-        state,
-        options,
-    )
-}

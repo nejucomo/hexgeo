@@ -1,16 +1,15 @@
 use derive_new::new;
 use egui::{Color32, Response, Sense, Stroke, Ui, Widget};
-use hexgeo::RadialIndexMap;
+use hexgeo::geom::{DHO, HexOrientation};
+use hexgeo::radial::RadialIndexMap;
 
-use crate::ext::AxialBoundsExt as _;
 use crate::projector::Projector;
-use crate::{AxialsExt as _, HexOrientation};
 
 /// A [Widget] for [AxialBounds] for displaying a wireframe of hexes with hover highlighting support
 #[derive(Debug, new)]
 pub struct Wireframe<'a> {
     bounds: &'a RadialIndexMap,
-    hexor: HexOrientation,
+    hexor: DHO,
 }
 
 impl<'a> Widget for Wireframe<'a> {
@@ -19,7 +18,10 @@ impl<'a> Widget for Wireframe<'a> {
         let resp = ui.allocate_rect(ui.max_rect(), Sense::hover());
 
         // TODO: Configurable aspect ratio
-        let projector = Projector::new(self.bounds.bounding_rect(self.hexor), ui.max_rect());
+        let projector = Projector::new(
+            self.hexor.disc_bounding_rect(self.bounds.radius()),
+            ui.max_rect(),
+        );
         let painter = ui.painter();
 
         for ax in self.bounds.iter_axials() {

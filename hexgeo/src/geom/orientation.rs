@@ -1,6 +1,6 @@
 use std::fmt::Debug;
 
-use emath::{Pos2, Vec2};
+use emath::{Pos2, Rect, Vec2};
 
 use crate::geom::{FlatTop, PointyTop};
 
@@ -19,13 +19,35 @@ pub trait HexOrientation: Copy + Clone + Debug + Default + Eq + PartialEq {
 
     /// The six vertices of the hex.
     fn vertices(self) -> [Pos2; 6];
+
+    /// The bounding rect of a single hex centered at the origin
+    #[inline]
+    fn bounding_rect(self) -> Rect {
+        Rect::from_center_size(Pos2::ZERO, self.width_and_height())
+    }
+
+    /// The bounding rectangle for a disc of given `radius`
+    #[inline]
+    fn disc_bounding_rect(self, radius: usize) -> Rect {
+        let frad = radius as f32;
+        let Pos2 {
+            x: right,
+            y: bottom,
+        } = self.bounding_rect().right_bottom();
+        let width = self.q_basis().x * frad + right;
+        let height = self.r_basis().y * frad + bottom;
+
+        Rect::from_x_y_ranges(-width..=width, -height..=height)
+    }
 }
 
 /// <u>D</u>ynamic <u>H</u>ex <u>O</u>rientation is a runtime switch on [HexOrientation]
 #[derive(Copy, Clone, Debug, Default, Eq, PartialEq)]
 pub enum DHO {
+    /// The flat top orientation
     #[default]
     FlatTop,
+    /// The pointy top orientation
     PointyTop,
 }
 

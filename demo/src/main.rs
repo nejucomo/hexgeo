@@ -3,8 +3,9 @@ use eframe::egui::{
     Widget,
 };
 use eframe::{Frame, NativeOptions, run_native};
-use hexgeo::RadialIndexMap;
-use hexgeo_egui::{HexOrientation, Wireframe};
+use hexgeo::geom::DHO;
+use hexgeo::radial::RadialIndexMap;
+use hexgeo_egui::Wireframe;
 
 mod select_menu;
 
@@ -22,7 +23,7 @@ fn main() -> eframe::Result<()> {
 
 struct App {
     bounds: RadialIndexMap,
-    hexor: HexOrientation,
+    dho: DHO,
     radius: usize,
 }
 
@@ -31,7 +32,7 @@ impl Default for App {
         let radius = 3;
         Self {
             bounds: RadialIndexMap::new(radius),
-            hexor: HexOrientation::default(),
+            dho: DHO::default(),
             radius,
         }
     }
@@ -52,13 +53,14 @@ impl eframe::App for App {
                     }
                 });
 
-                select_menu::add_with_type_name(ui, &mut self.hexor, {
-                    use HexOrientation::*;
+                select_menu::add(
+                    ui,
+                    "Orientation",
+                    &mut self.dho,
+                    [DHO::FlatTop, DHO::PointyTop],
+                );
 
-                    [FlatTop, PointyTop]
-                });
-
-                select_menu::add(ui, "radius", &mut self.radius, 0..=7);
+                select_menu::add(ui, "Radius", &mut self.radius, 0..=7);
             });
         });
         CentralPanel::default().show(ctx, |ui| ui.add(self));
@@ -67,6 +69,6 @@ impl eframe::App for App {
 
 impl Widget for &mut App {
     fn ui(self, ui: &mut Ui) -> Response {
-        ui.add(Wireframe::new(&self.bounds, self.hexor))
+        ui.add(Wireframe::new(&self.bounds, self.dho))
     }
 }

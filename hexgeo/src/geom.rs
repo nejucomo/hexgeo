@@ -15,7 +15,10 @@ pub use self::orientation::{DHO, HexOrientation};
 /// Taken from `std` experimental nightly docs; backported for stable:
 const SQRT_3: f32 = 1.732050807568877293527446341505872367_f32;
 
+/// The length of the longer of the two cartesian radii; see the [geom] mod docs for a graphical diagram
 pub const LONG_RADIUS: f32 = 0.5;
+
+/// The length of the shorter of the two cartesian radii; see the [geom] mod docs for a graphical diagram
 pub const SHORT_RADIUS: f32 = SQRT_3 / 2.0;
 
 /// Constants for the flat-top orientation
@@ -24,10 +27,19 @@ pub mod flat_top {
     use super::*;
 
     // pub const BOTTOM_LEFT: Vec2 = Vec2::new(LONG_RADIUS, SHORT_RADIUS);
+
+    /// A const definition of [HexOrientation::width_and_height]
     pub const WIDTH_AND_HEIGHT: Vec2 = Vec2::new(LONG_RADIUS, SHORT_RADIUS);
+
+    /// A const definition of [HexOrientation::q_basis]
     pub const BASIS_Q: Vec2 = Vec2::new(1.5 * LONG_RADIUS, SHORT_RADIUS);
+
+    /// A const definition of [HexOrientation::r_basis]
     pub const BASIS_R: Vec2 = Vec2::new(0.0, 2.0 * SHORT_RADIUS);
-    // TODO: These were just copy-pasta and may not be precise
+
+    /// A const definition of [HexOrientation::vertices]
+    ///
+    /// - **TODO: These were just copy-pasta and may not be precise.**
     pub const VERTICES: [Pos2; 6] = [
         Pos2::new(0.0, -1.0),
         Pos2::new(0.8660254, -0.5),
@@ -43,9 +55,19 @@ pub mod pointy_top {
     use super::*;
 
     // pub const BOTTOM_LEFT: Vec2 = Vec2::new(SHORT_RADIUS, LONG_RADIUS);
+
+    /// A const definition of [HexOrientation::width_and_height]
     pub const WIDTH_AND_HEIGHT: Vec2 = Vec2::new(SHORT_RADIUS, LONG_RADIUS);
+
+    /// A const definition of [HexOrientation::q_basis]
     pub const BASIS_Q: Vec2 = Vec2::new(2.0 * SHORT_RADIUS, 0.0);
+
+    /// A const definition of [HexOrientation::r_basis]
     pub const BASIS_R: Vec2 = Vec2::new(SHORT_RADIUS, 1.5 * LONG_RADIUS);
+
+    /// A const definition of [HexOrientation::vertices]
+    ///
+    /// - **TODO: These were just copy-pasta and may not be precise.**
     pub const VERTICES: [Pos2; 6] = [
         Pos2::new(-1.0, 0.0),
         Pos2::new(-0.5, -0.8660254),

@@ -7,13 +7,15 @@
 //! See [geom] for more detail.
 //!
 #![doc = include_str!("geom/overview.svg")]
-#![deny(unsafe_code)]
+//!
+//! # TODO / Messy Notes
+//!
+//! - define `disc` or use the term from RedBlob.
+//! - back-out `RadialIndexMap` for a stateless impl for API/impl simplicity. The stateful version needs to be justified w/ profiling.
+#![deny(unsafe_code, missing_docs)]
 
 mod axials;
-mod board;
 
 pub mod geom;
 pub mod radial;
 pub use self::axials::Axials;
-pub use self::board::Board;
-pub use self::radial::RadialIndexMap;

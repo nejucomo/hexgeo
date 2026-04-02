@@ -1,4 +1,9 @@
+//! Radial support: rings, discs aka hex-of-hexes
+mod board;
+
 use crate::Axials;
+
+pub use self::board::RadialBoard;
 
 /// Precomputed coordinate bounds for quick conversion between axial coords and usize storage indices for a disc / hex of hexes of a given radius
 ///
@@ -17,6 +22,7 @@ pub struct RadialIndexMap {
 }
 
 impl RadialIndexMap {
+    /// Create a new index map for the given `radius`
     pub fn new(radius: usize) -> Self {
         let radius_i = radius as isize;
         let rows = 2 * radius + 1;
@@ -46,6 +52,7 @@ impl RadialIndexMap {
         }
     }
 
+    /// The radius
     #[inline]
     pub fn radius(&self) -> usize {
         self.radius
@@ -55,11 +62,13 @@ impl RadialIndexMap {
         self.radius as isize
     }
 
+    /// The number of hexes within a disc with our radius
     #[inline]
     pub fn count(&self) -> usize {
         self.index_rows.len()
     }
 
+    /// Do the given `axials` refer to a hex on this disc?
     #[inline]
     pub fn contains(&self, axials: Axials) -> bool {
         let Axials { q, r } = axials;
@@ -68,6 +77,7 @@ impl RadialIndexMap {
         q.abs() <= rad && r.abs() <= rad && s.abs() <= rad
     }
 
+    /// Iterate over all [Axials] contained on this disc
     pub fn iter_axials(&self) -> impl Iterator<Item = Axials> + '_ {
         (0..self.count()).map(|ix| self.index_to_axial(ix).unwrap())
     }
