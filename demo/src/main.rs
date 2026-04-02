@@ -1,7 +1,8 @@
 mod ext;
 
 use eframe::egui::{
-    CentralPanel, Context, Key, Response, SidePanel, Ui, ViewportBuilder, ViewportCommand, Widget,
+    CentralPanel, Context, Key, Response, SidePanel, ThemePreference, Ui, ViewportBuilder,
+    ViewportCommand, Widget,
 };
 use eframe::{Frame, NativeOptions, run_native};
 use hexgeo::geom::DHO;
@@ -24,6 +25,7 @@ fn main() -> eframe::Result<()> {
 
 struct App {
     bounds: RadialIndexMap,
+    theme: ThemePreference,
     dho: DHO,
     radius: usize,
 }
@@ -33,6 +35,7 @@ impl Default for App {
         let radius = 3;
         Self {
             bounds: RadialIndexMap::new(radius),
+            theme: ThemePreference::default(),
             dho: DHO::default(),
             radius,
         }
@@ -46,6 +49,9 @@ impl eframe::App for App {
             self.bounds = RadialIndexMap::new(self.radius);
         }
 
+        // TODO: Is this too heavy for every frame?
+        ctx.set_theme(self.theme);
+
         SidePanel::right("top_panel")
             .resizable(false)
             .show(ctx, |ui| {
@@ -53,9 +59,14 @@ impl eframe::App for App {
                     ui.ctx().send_viewport_cmd(ViewportCommand::Close);
                 }
 
+                ui.choice_frame("Theme", &mut self.theme, {
+                    use ThemePreference::*;
+                    [System, Dark, Light]
+                });
                 ui.choice_frame("Orientation", &mut self.dho, [DHO::FlatTop, DHO::PointyTop]);
                 ui.choice_frame("Radius", &mut self.radius, 0..=7);
             });
+
         CentralPanel::default().show(ctx, |ui| ui.add(self));
 
         if ctx.input(|i| i.key_pressed(Key::Escape)) {

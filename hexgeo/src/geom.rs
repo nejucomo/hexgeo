@@ -15,10 +15,10 @@ pub use self::orientation::{DHO, HexOrientation};
 /// Taken from `std` experimental nightly docs; backported for stable:
 const SQRT_3: f32 = 1.732050807568877293527446341505872367_f32;
 
-/// The length of the longer of the two cartesian radii; see the [geom] mod docs for a graphical diagram
+/// The length of the longer of the two cartesian radii
 pub const LONG_RADIUS: f32 = 0.5;
 
-/// The length of the shorter of the two cartesian radii; see the [geom] mod docs for a graphical diagram
+/// The length of the shorter of the two cartesian radii
 pub const SHORT_RADIUS: f32 = SQRT_3 / 2.0;
 
 /// Constants for the flat-top orientation

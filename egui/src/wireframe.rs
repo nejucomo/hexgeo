@@ -5,7 +5,7 @@ use hexgeo::radial::RadialIndexMap;
 
 use crate::projector::Projector;
 
-/// A [Widget] for [AxialBounds] for displaying a wireframe of hexes with hover highlighting support
+/// A [Widget] for [RadialIndexMap] for displaying a wireframe of hexes with hover highlighting support
 #[derive(Debug, new)]
 pub struct Wireframe<'a> {
     bounds: &'a RadialIndexMap,
