@@ -22,8 +22,8 @@
 
         buildInputs = with pkgs; [ ];
 
-        defaultPkg = pkgs.rustPlatform.buildRustPackage {
-          pname = "modmad";
+        defaultPkg = pkgs.rustPlatform.buildRustPackage rec {
+          pname = "hexgeo";
           version = "0.1.0";
 
           src = ./.;
@@ -37,7 +37,7 @@
           inherit buildInputs;
 
           meta = with pkgs.lib; {
-            homepage = "https://github.com/nejucomo/modmad";
+            homepage = "https://github.com/nejucomo/${pname}";
             license = licenses.mit;
             maintainers = [ ];
           };

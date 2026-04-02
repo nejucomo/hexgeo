@@ -1,6 +1,6 @@
 use egui::{Pos2, Rect};
 use extension_traits::extension;
-use hexohexes::{AxialBounds, Axials};
+use hexgeo::{AxialBounds, Axials};
 
 use crate::HexOrientation;
 

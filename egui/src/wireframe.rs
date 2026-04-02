@@ -1,6 +1,6 @@
 use derive_new::new;
 use egui::{Color32, Response, Sense, Stroke, Ui, Widget};
-use hexohexes::AxialBounds;
+use hexgeo::AxialBounds;
 
 use crate::ext::AxialBoundsExt as _;
 use crate::projector::Projector;

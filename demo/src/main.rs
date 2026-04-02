@@ -3,8 +3,8 @@ use eframe::egui::{
     Widget,
 };
 use eframe::{Frame, NativeOptions, run_native};
-use hexohexes::AxialBounds;
-use hexohexes_egui::{HexOrientation, Wireframe};
+use hexgeo::AxialBounds;
+use hexgeo_egui::{HexOrientation, Wireframe};
 
 mod select_menu;
 

@@ -1,13 +1,13 @@
 [workspace]
-members = ["hexohexes", "hoh-egui", "demo"]
+members = ["hexgeo", "egui", "demo"]
 resolver = "3"
 
 [workspace.package]
 edition = "2024"
 
 [workspace.dependencies]
-hexohexes = { path = "hexohexes" }
-hexohexes-egui = { path = "hoh-egui" }
+hexgeo = { path = "hexgeo" }
+hexgeo-egui = { path = "egui" }
 
 clap = { version = "4.5.54", features = ["derive"] }
 color-eyre = "0.6.5"

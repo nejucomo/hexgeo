@@ -1438,7 +1438,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "dfa686283ad6dd069f105e5ab091b04c62850d3e4cf5d67debad1933f55023df"
 
 [[package]]
-name = "hexohexes"
+name = "hexgeo"
 version = "0.1.0"
 dependencies = [
  "derive-new",
@@ -1446,22 +1446,22 @@ dependencies = [
 ]
 
 [[package]]
-name = "hexohexes-egui"
+name = "hexgeo-egui"
 version = "0.1.0"
 dependencies = [
  "derive-new",
  "egui",
  "extension-traits",
- "hexohexes",
+ "hexgeo",
 ]
 
 [[package]]
-name = "hexohexes-egui-demo"
+name = "hexgeo-egui-demo"
 version = "0.1.0"
 dependencies = [
  "eframe",
- "hexohexes",
- "hexohexes-egui",
+ "hexgeo",
+ "hexgeo-egui",
 ]
 
 [[package]]

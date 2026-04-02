@@ -1,4 +1,4 @@
-//! [egui] and graphical support for [hexohexes]
+//! [egui] and graphical support for [hexgeo]
 //!
 #![deny(unsafe_code)]
 
