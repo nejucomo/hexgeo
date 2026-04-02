@@ -84,12 +84,41 @@
         (0, 1)
       </text>
     </g>
+    <g id="unit-bracket-half">
+      <path
+        stroke-width="1"
+        stroke="currentColor"
+        fill="none"
+        d="
+        M 0 0
+        S 15,20 10,30 0,45 15,50
+        "/>
+      <!-- Bezier spline diagnostics
+      <g stroke="green" stroke-width="0.5" fill="none">
+        <circle cx="15" cy="20" r="2"/>
+        <circle cx="0" cy="45" r="2"/>
+      </g>
+      <g fill="grey">
+        <circle cx="10" cy="30" r="2"/>
+        <circle cx="15" cy="50" r="2"/>
+      </g>
+      -->
+    </g>
+    <g id="unit-bracket" transform="translate(-0.05, -0.05) rotate(180) scale(0.0087)">
+      <use href="#unit-bracket-half"/>
+      <use href="#unit-bracket-half" transform="translate(0 100) scale(1 -1)"/>
+    </g>
+    <g id="unit-brackets">
+      <use href="#unit-bracket"/>
+      <use href="#unit-bracket" transform="matrix(0 -1 -1 0 0 0) translate(0 -0.02) scale(1 0.87)"/>
+    </g>
   </defs>
   <g id="PointyTop" transform="translate(225 210)">
     <text class="label" x="0" y="-155" text-anchor="middle">PointyTop</text>
-    <use href="#axis-labels" />
+    <use href="#axis-labels"/>
     <g transform="scale(120)">
-      <use href="#axes-and-circle" />
+      <use href="#axes-and-circle"/>
+      <use href="#unit-brackets"/>
       <polygon class="hex"
         points="
           0,-1
@@ -106,6 +135,7 @@
     <use href="#axis-labels" />
     <g transform="scale(120)">
       <use href="#axes-and-circle" />
+      <use href="#unit-brackets" transform="matrix(0 -1 -1 0 0 0)"/>
       <polygon class="hex"
         points="
           -1,0
