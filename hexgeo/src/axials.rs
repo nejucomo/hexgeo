@@ -4,7 +4,7 @@ use emath::Vec2;
 use crate::geom::HexOrientation;
 
 /// [Axial coordinates](https://www.redblobgames.com/grids/hexagons/#coordinates-axial) for a hexagonal tiling
-#[derive(Copy, Clone, Debug, From, Into)]
+#[derive(Copy, Clone, Debug, From, Into, Eq, PartialEq, Ord, PartialOrd)]
 pub struct Axials {
     /// The `q` axis coordinate
     pub q: isize,

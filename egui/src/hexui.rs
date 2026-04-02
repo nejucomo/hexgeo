@@ -29,19 +29,46 @@ impl<'a> HexUi<'a> {
         self.ax
     }
 
-    pub fn line(&self, pts: [Pos2; 2], stroke: Stroke) {
+    pub fn line<P>(&self, pts: [P; 2], stroke: Stroke)
+    where
+        P: Into<Pos2>,
+    {
         let screenpts = pts.map(|loc| self.local_to_screen(loc));
 
         self.painter().line_segment(screenpts, stroke);
+    }
+
+    pub fn path<I, P>(&self, pts: I, stroke: Stroke, closed: bool)
+    where
+        I: IntoIterator<Item = P>,
+        P: Into<Pos2>,
+    {
+        let mut first = None;
+        let mut prev = None;
+        for pt in pts {
+            let pt = pt.into();
+            first.get_or_insert(pt);
+            if let Some(pp) = prev {
+                self.line([pp, pt], stroke);
+            }
+            prev = Some(pt);
+        }
+
+        if let (true, Some(last), Some(first)) = (closed, prev, first) {
+            self.line([last, first], stroke);
+        }
     }
 
     fn painter(&self) -> &Painter {
         self.ui.painter()
     }
 
-    fn local_to_screen(&self, pt: Pos2) -> Pos2 {
+    fn local_to_screen<P>(&self, pt: P) -> Pos2
+    where
+        P: Into<Pos2>,
+    {
         // Translate to rim-logical pos:
-        let rimpos = pt + self.ax.origin_to_center(self.dho);
+        let rimpos = pt.into() + self.ax.origin_to_center(self.dho);
         // Project into screen coordinates:
         self.p.project(rimpos)
     }
