@@ -16,10 +16,16 @@ pub use self::orientation::{DHO, HexOrientation};
 const SQRT_3: f32 = 1.732050807568877293527446341505872367_f32;
 
 /// The length of the longer of the two cartesian radii
-pub const LONG_RADIUS: f32 = 0.5;
+pub const LONG_RADIUS: f32 = 1.0;
+
+/// The length of the longer of the two cartesian diameters
+pub const LONG_DIAMETER: f32 = 2.0 * LONG_RADIUS;
 
 /// The length of the shorter of the two cartesian radii
 pub const SHORT_RADIUS: f32 = SQRT_3 / 2.0;
+
+/// The length of the shorter of the two cartesian diameters
+pub const SHORT_DIAMETER: f32 = 2.0 * SHORT_RADIUS;
 
 /// Constants for the flat-top orientation
 pub mod flat_top {
@@ -29,7 +35,7 @@ pub mod flat_top {
     // pub const BOTTOM_LEFT: Vec2 = Vec2::new(LONG_RADIUS, SHORT_RADIUS);
 
     /// A const definition of [HexOrientation::width_and_height]
-    pub const WIDTH_AND_HEIGHT: Vec2 = Vec2::new(LONG_RADIUS, SHORT_RADIUS);
+    pub const WIDTH_AND_HEIGHT: Vec2 = Vec2::new(LONG_DIAMETER, SHORT_DIAMETER);
 
     /// A const definition of [HexOrientation::q_basis]
     pub const BASIS_Q: Vec2 = Vec2::new(1.5 * LONG_RADIUS, SHORT_RADIUS);
@@ -41,12 +47,12 @@ pub mod flat_top {
     ///
     /// - **TODO: These were just copy-pasta and may not be precise.**
     pub const VERTICES: [Pos2; 6] = [
-        Pos2::new(0.0, -1.0),
-        Pos2::new(0.8660254, -0.5),
-        Pos2::new(0.8660254, 0.5),
-        Pos2::new(0.0, 1.0),
-        Pos2::new(-0.8660254, 0.5),
-        Pos2::new(-0.8660254, -0.5),
+        Pos2::new(-1.0, 0.0),
+        Pos2::new(-0.5, -0.8660254),
+        Pos2::new(0.5, -0.8660254),
+        Pos2::new(1.0, 0.0),
+        Pos2::new(0.5, 0.8660254),
+        Pos2::new(-0.5, 0.8660254),
     ];
 }
 
@@ -57,7 +63,7 @@ pub mod pointy_top {
     // pub const BOTTOM_LEFT: Vec2 = Vec2::new(SHORT_RADIUS, LONG_RADIUS);
 
     /// A const definition of [HexOrientation::width_and_height]
-    pub const WIDTH_AND_HEIGHT: Vec2 = Vec2::new(SHORT_RADIUS, LONG_RADIUS);
+    pub const WIDTH_AND_HEIGHT: Vec2 = Vec2::new(SHORT_DIAMETER, LONG_DIAMETER);
 
     /// A const definition of [HexOrientation::q_basis]
     pub const BASIS_Q: Vec2 = Vec2::new(2.0 * SHORT_RADIUS, 0.0);
@@ -69,12 +75,12 @@ pub mod pointy_top {
     ///
     /// - **TODO: These were just copy-pasta and may not be precise.**
     pub const VERTICES: [Pos2; 6] = [
-        Pos2::new(-1.0, 0.0),
-        Pos2::new(-0.5, -0.8660254),
-        Pos2::new(0.5, -0.8660254),
-        Pos2::new(1.0, 0.0),
-        Pos2::new(0.5, 0.8660254),
-        Pos2::new(-0.5, 0.8660254),
+        Pos2::new(0.0, -1.0),
+        Pos2::new(0.8660254, -0.5),
+        Pos2::new(0.8660254, 0.5),
+        Pos2::new(0.0, 1.0),
+        Pos2::new(-0.8660254, 0.5),
+        Pos2::new(-0.8660254, -0.5),
     ];
 }
 
